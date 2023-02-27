@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import com.example.service.ICalculatorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,30 +11,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/calculator")
 public class CalculatorController {
+    @Autowired
+    ICalculatorService calculatorService;
     @GetMapping("")
-    public String calculate (@RequestParam(required = false) Integer number1, Integer number2, String calculate ,Model model) {
+    public String calculate (@RequestParam(required = false) Double number1, Double number2,
+                             String calculate ,Model model) {
         if (number1 == null & number2 == null) {
             return "calculator";
         }
-        int result = 0;
         String message = "";
         String calculationMessage = "";
+        double result = calculatorService.performCalculation(calculate, number1, number2);
         switch (calculate) {
             case "Addition(+)":
-                result = number1 + number2;
                 calculationMessage = "Addition";
                 break;
             case "Subtraction(-)":
-                result = number1 - number2;
                 calculationMessage = "Subtraction";
                 break;
             case "Multiplication(*)":
-                result = number1 * number2;
                 calculationMessage = "Multiplication";
                 break;
             case "Division(/)":
-                if (number2 != 0) {
-                    result = number1 / number2;
+                if (result != 0) {
                     calculationMessage = "Division";
                 } else {
                     message = "Hãy nhập số khác 0";
