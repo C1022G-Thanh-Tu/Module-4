@@ -1,9 +1,10 @@
-package com.example.service;
+package com.example.service.impl;
 
+import com.example.service.ICalculatorService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CalculatorService implements ICalculatorService{
+public class CalculatorService implements ICalculatorService {
     @Override
     public double performCalculation(String calculate, double number1, double number2) {
         switch (calculate) {
