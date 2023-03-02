@@ -38,11 +38,11 @@
     <tbody>
         <tr th:each="product, iterStat : ${productList}">
             <td th:text="${iterStat.count}"></td>
-            <td><a th:href="@{/product/detail?id=__${product.id}__}" th:text="*{product.name}"></a></td>
+            <td><a th:href="@{/product/detail?id=__*{product.id}__}" th:text="*{product.name}"></a></td>
             <td th:text="*{product.price}"></td>
             <td th:text="*{product.description}"></td>
             <td th:text="*{product.manufacturer}"></td>
-            <td><a th:href="@{/product/edit?id=__${product.id}__}" class="btn btn-primary">Edit</a></td>
+            <td><a th:href="@{/product/edit?id=__*{product.id}__}" class="btn btn-primary">Edit</a></td>
             <td>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modelId"
                         th:attr="onclick=|getProductInfo('${product.id}', '${product.name}')|">
@@ -52,7 +52,6 @@
         </tr>
     </tbody>
 </table>
-<!-- Button trigger modal -->
 
 <!-- Modal -->
 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">

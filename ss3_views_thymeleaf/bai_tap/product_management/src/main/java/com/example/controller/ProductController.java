@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
-    IProductService productService;
+    private IProductService productService;
     @GetMapping("")
     public String showProductList (@RequestParam(required = false) String name, Model model) {
         model.addAttribute("productList", productService.listProductByName(name));
