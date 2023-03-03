@@ -14,7 +14,7 @@
 
 <form action="/blog/edit" method="post" th:object="${blog}">
   <input type="hidden" th:field="${blog.id}">
-  <label for="name">Tên Blog</label>
+  <label for="name">Tên tác giả</label>
   <input type="text" class="form-control" th:field="*{authorName}" id="name">
   <label for="title">Tiêu đề</label>
   <input type="text" class="form-control" th:field="*{title}" id="title">
