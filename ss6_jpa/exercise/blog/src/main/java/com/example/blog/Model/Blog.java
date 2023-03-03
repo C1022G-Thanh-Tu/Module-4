@@ -12,7 +12,7 @@ public class Blog {
     private String authorName;
     @Column(name = "title", nullable = false)
     private String title;
-    @Column(name = "content", nullable = false)
+    @Column(name = "content", nullable = false, length = 500)
     private String content;
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false, referencedColumnName = "id")
