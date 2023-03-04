@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
+    @GetMapping("")
+    public String showCategoryList (Model model) {
+        model.addAttribute("categoryList", categoryService.findAll());
+        return "category-list";
+    }
 
     @GetMapping("/create")
     public String showCreateForm (Model model) {

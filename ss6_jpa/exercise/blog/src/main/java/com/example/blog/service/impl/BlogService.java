@@ -37,11 +37,6 @@ public class BlogService implements IBlogService {
 
     @Override
     public void updateBlog(Blog blog) {
-        Blog b = findBlogById(blog.getId());
-        b.setAuthorName(blog.getAuthorName());
-        b.setTitle(blog.getTitle());
-        b.setContent(blog.getContent());
-        b.setCategory(blog.getCategory());
-        blogRepository.save(b);
+        blogRepository.save(blog);
     }
 }
