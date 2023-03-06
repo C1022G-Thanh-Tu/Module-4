@@ -5,6 +5,8 @@ import com.example.blog.repository.IBlogRepository;
 import com.example.blog.repository.ICategoryRepository;
 import com.example.blog.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +18,8 @@ public class BlogService implements IBlogService {
     @Autowired
     private ICategoryRepository categoryRepository;
     @Override
-    public List<Blog> findAll(String name) {
-        return blogRepository.findByAuthorNameContaining(name);
+    public Page<Blog> findAll(String name, Pageable pageable) {
+        return blogRepository.findByAuthorNameContaining(name, pageable);
     }
 
     @Override

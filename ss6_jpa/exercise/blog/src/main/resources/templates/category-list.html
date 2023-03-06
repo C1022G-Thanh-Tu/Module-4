@@ -19,6 +19,18 @@
 
 <a href="/blog" class="btn btn-secondary mb-3 mt-3">Quay lại trang chủ</a>
 
+<div class="nav-item dropdown mb-4">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+        Danh mục
+    </a>
+    <div class="dropdown-menu" >
+        <a th:each="category : ${categoryList}" class="dropdown-item"
+           th:href="@{/category(name = ${category.name})}"
+           th:text="${category.name}">
+        </a>
+    </div>
+</div>
+
 <table class="table">
     <thead>
     <tr>
@@ -36,10 +48,10 @@
         <td>
             <th:block th:each="blogName : ${category.blogSet}">
                 <div th:if="${blogName.title == null}">
-                    <span> </span>
+                    <span></span>
                 </div>
                 <div th:if="${blogName.title != null}">
-                    <span th:text="${blogName.title}"> </span>
+                    <span th:text="${blogName.title}"></span>
                 </div>
             </th:block>
         </td>

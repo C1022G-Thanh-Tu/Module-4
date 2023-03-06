@@ -6,6 +6,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ICategoryService {
-    List<Category> findAll();
+    List<Category> findAll(String name);
     void createCategory (Category category);
 }

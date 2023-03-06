@@ -20,7 +20,7 @@
   <input type="text" class="form-control" th:field="*{title}" id="title">
   <label for="content">Nội dung</label>
   <input type="text" class="form-control" th:field="*{content}" id="content">
-  <label>Thể loại</label>
+  <label>Danh mục</label>
   <select class="form-control" th:field="*{category}">
     <option th:each="category : ${categoryList}"  th:text="${category.name}" th:value="${category.id}"></option>
   </select>

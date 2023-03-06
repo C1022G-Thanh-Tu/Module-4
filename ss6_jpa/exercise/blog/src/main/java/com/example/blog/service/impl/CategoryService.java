@@ -14,8 +14,8 @@ public class CategoryService implements ICategoryService {
     private ICategoryRepository categoryRepository;
 
     @Override
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
+    public List<Category> findAll(String name) {
+        return categoryRepository.findAllByNameContaining(name);
     }
 
     @Override

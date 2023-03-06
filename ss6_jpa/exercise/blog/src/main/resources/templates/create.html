@@ -18,7 +18,7 @@
   <input type="text" class="form-control" th:field="*{title}" id="price">
   <label for="description">Điền nội dung</label>
   <input type="text" class="form-control" th:field="*{content}" id="description">
-  <label>Chọn thể loại</label>
+  <label>Chọn danh mục</label>
   <select class="form-control" th:field="*{category}">
       <option th:each="category : ${categoryList}"  th:text="${category.name}" th:value="${category.id}"></option>
   </select>

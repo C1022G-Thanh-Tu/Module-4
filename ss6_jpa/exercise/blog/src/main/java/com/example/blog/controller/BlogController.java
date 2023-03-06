@@ -5,10 +5,16 @@ import com.example.blog.Model.Category;
 import com.example.blog.service.IBlogService;
 import com.example.blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -19,18 +25,36 @@ public class BlogController {
     @Autowired
     private ICategoryService categoryService;
     @GetMapping("")
-    public String showBlogList (@RequestParam(required = false, defaultValue = "") String name, Model model) {
+    public String showBlogList (@RequestParam(required = false, defaultValue = "") String name, Model model,
+                                @PageableDefault(size = 5) Pageable pageable) {
         if (name == null) {
             name = "";
         }
 
-        model.addAttribute("blogList", blogService.findAll(name));
+        Sort sort = Sort.by("id").descending();
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+        Page<Blog> blogPage = blogService.findAll(name, sortedPageable);
+
+        model.addAttribute("blogList", blogPage);
+        model.addAttribute("name", name);
+
+        List<Integer> pageNumberList = new ArrayList<>();
+        for (int i = 1; i <= blogPage.getTotalPages(); i++) {
+            pageNumberList.add(i);
+        }
+
+        model.addAttribute("pageNumberList", pageNumberList);
+
+        model.addAttribute("categoryList", categoryService.findAll(name));
         return "/list";
     }
 
     @GetMapping("/create")
-    public String showCreateForm (Model model) {
-        model.addAttribute("categoryList", categoryService.findAll());
+    public String showCreateForm (@RequestParam (required = false) String name,Model model) {
+        if (name == null) {
+            name = "";
+        }
+        model.addAttribute("categoryList", categoryService.findAll(name));
         model.addAttribute("blog", new Blog());
         return "/create";
     }
@@ -54,8 +78,11 @@ public class BlogController {
     }
 
     @GetMapping("/edit")
-    public String showUpdateForm (@RequestParam Integer id, Model model) {
-        model.addAttribute("categoryList", categoryService.findAll());
+    public String showUpdateForm (@RequestParam (required = false) Integer id, String name, Model model) {
+        if (name == null) {
+            name = "";
+        }
+        model.addAttribute("categoryList", categoryService.findAll(name));
         model.addAttribute("blog", blogService.findBlogById(id));
         return "/edit";
     }
