@@ -39,7 +39,7 @@
         Danh mục
     </a>
     <div class="dropdown-menu" >
-        <a th:each="category : ${categoryList}" class="dropdown-item"
+        <a th:each="category : ${categories}" class="dropdown-item"
            th:href="@{/category(name = ${category.name})}"
            th:text="${category.name}">
         </a>

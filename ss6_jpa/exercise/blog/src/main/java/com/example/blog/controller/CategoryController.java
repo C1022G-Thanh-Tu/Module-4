@@ -24,7 +24,7 @@ public class CategoryController {
         if (name == null) {
             name = "";
         }
-
+        model.addAttribute("categories", categoryService.listAll());
         Page<Category> categories = categoryService.findAll(name, pageable);
         model.addAttribute("categoryList", categories);
         List<Integer> pageNumberist = new ArrayList<>();
