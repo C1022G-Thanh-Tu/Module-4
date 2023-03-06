@@ -12,7 +12,7 @@
 </head>
 <body>
 <form action="/blog/create" method="post" th:object="${blog}">
-  <label for="name">Điền tên Blog</label>
+  <label for="name">Điền tên tác giả</label>
   <input type="text" class="form-control" th:field="*{authorName}" id="name">
   <label for="price">Điền tiêu đề</label>
   <input type="text" class="form-control" th:field="*{title}" id="price">
