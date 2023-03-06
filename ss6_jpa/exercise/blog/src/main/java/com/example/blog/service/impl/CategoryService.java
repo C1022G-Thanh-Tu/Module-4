@@ -4,6 +4,8 @@ import com.example.blog.Model.Category;
 import com.example.blog.repository.ICategoryRepository;
 import com.example.blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,13 +16,12 @@ public class CategoryService implements ICategoryService {
     private ICategoryRepository categoryRepository;
 
     @Override
-    public List<Category> findAll(String name) {
-        return categoryRepository.findAllByNameContaining(name);
+    public Page<Category> findAll(String name, Pageable pageable) {
+        return categoryRepository.findAllByNameContaining(name, pageable);
     }
 
     @Override
-    public void createCategory(Category category) {
-        categoryRepository.save(category);
+    public void createCategory(Category category) {categoryRepository.save(category);
     }
 
 }

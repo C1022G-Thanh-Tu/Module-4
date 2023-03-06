@@ -9,15 +9,30 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{themify-icons/themify-icons.css}">
     <style>
         th, td {
             text-align: center;
+        }
+        .page-item {
+            text-decoration: none;
+            border: 1px solid #000000;
+            margin-right: 5px;
+        }
+        .page-item.number:hover {
+            color: black;
+            background-color: #cccccc;
+        }
+        .page-item.number.active {
+            color: black !important;
+            background-color: #cccccc !important;
         }
     </style>
 </head>
 <body>
 
 <a href="/blog" class="btn btn-secondary mb-3 mt-3">Quay lại trang chủ</a>
+<a href="/category" class="btn btn-secondary mb-3 mt-3">Tất cả danh mục</a>
 
 <div class="nav-item dropdown mb-4">
     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -66,6 +81,24 @@
     </tr>
     </tbody>
 </table>
+
+<div class="text-center">
+    <a class="page-item btn btn-dark"
+       th:if="${categoryList.hasPrevious()}"
+       th:href="@{/category(page = ${categoryList.number - 1})}">
+        <i class="ti-angle-left"></i>
+    </a>
+    <a class="page-item btn btn-dark number" th:classappend="${pageNumber == categoryList.number + 1} ? 'active' : ''"
+       th:each="pageNumber : ${pageNumberist}"
+       th:text="${pageNumber}"
+       th:href="@{/category(page = ${pageNumber - 1})}">
+    </a>
+    <a class="page-item btn btn-dark"
+       th:if="${categoryList.hasNext()}"
+       th:href="@{/category(page = ${categoryList.number + 1})}">
+        <i class="ti-angle-right"></i>
+    </a>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">

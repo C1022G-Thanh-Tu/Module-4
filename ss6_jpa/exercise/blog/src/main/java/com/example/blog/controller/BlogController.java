@@ -44,17 +44,16 @@ public class BlogController {
         }
 
         model.addAttribute("pageNumberList", pageNumberList);
-
-        model.addAttribute("categoryList", categoryService.findAll(name));
         return "/list";
     }
 
     @GetMapping("/create")
-    public String showCreateForm (@RequestParam (required = false) String name,Model model) {
+    public String showCreateForm (@RequestParam (required = false) String name,Model model,
+                                  @PageableDefault Pageable pageable) {
         if (name == null) {
             name = "";
         }
-        model.addAttribute("categoryList", categoryService.findAll(name));
+        model.addAttribute("categoryList", categoryService.findAll(name, pageable));
         model.addAttribute("blog", new Blog());
         return "/create";
     }
@@ -78,11 +77,12 @@ public class BlogController {
     }
 
     @GetMapping("/edit")
-    public String showUpdateForm (@RequestParam (required = false) Integer id, String name, Model model) {
+    public String showUpdateForm (@RequestParam (required = false) Integer id, String name, Model model,
+                                  @PageableDefault Pageable pageable) {
         if (name == null) {
             name = "";
         }
-        model.addAttribute("categoryList", categoryService.findAll(name));
+        model.addAttribute("categoryList", categoryService.findAll(name, pageable));
         model.addAttribute("blog", blogService.findBlogById(id));
         return "/edit";
     }
