@@ -20,7 +20,7 @@ public class SongController {
     private ISongService songService;
     @GetMapping("")
     public String showList(Model model) {
-        model.addAttribute("songList", songService.findAll());
+        model.addAttribute("songList", songService.findAllSong());
         return "/list";
     }
 
