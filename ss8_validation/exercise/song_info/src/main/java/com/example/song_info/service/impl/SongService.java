@@ -1,20 +1,26 @@
 package com.example.song_info.service.impl;
 
+import com.example.song_info.dto.SongDTO;
 import com.example.song_info.model.Song;
 import com.example.song_info.repository.ISongRepository;
 import com.example.song_info.service.ISongService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SongService implements ISongService {
     @Autowired
+    private ModelMapper mapper;
+    @Autowired
     private ISongRepository songRepository;
     @Override
-    public List<Song> findAll() {
-        return songRepository.findAll();
+    public List<SongDTO> findAll() {
+        List<Song> songList = songRepository.findAll();
+        return songList.stream().map(song -> mapper.map(song, SongDTO.class)).collect(Collectors.toList());
     }
 
     @Override
