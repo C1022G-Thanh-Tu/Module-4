@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface ISongService {
     List<SongDTO> findAll();
-    List<Song> findAllSong();
     void creatSong(Song song);
     Song findById(int id);
     void updateSong (Song song);
