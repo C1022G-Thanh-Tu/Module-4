@@ -55,14 +55,18 @@ public class SongController {
     }
 
     @PostMapping("/edit")
-    public String erformEdit(@Valid @ModelAttribute Song song,
+    public String erformEdit(@Valid @ModelAttribute SongDTO songDTO,
+                             @RequestParam int id,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "/edit";
         }
-
+        Song song = songService.findById(id);
+        BeanUtils.copyProperties(songDTO, song);
         songService.updateSong(song);
+
+        redirectAttributes.addFlashAttribute("message", "msg.editSuccess");
         return "redirect:/song";
     }
 }

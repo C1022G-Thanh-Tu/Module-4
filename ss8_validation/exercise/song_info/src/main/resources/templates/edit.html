@@ -13,7 +13,7 @@
 <body>
 
 <form action="/song/edit" method="post" th:object="${songOTD}">
-    <input type="hidden" th:field="${song.id}">
+    <input type="hidden" name="id" th:value="${song.id}">
     <label for="songName">Điền tên bài hát</label>
     <input type="text" class="form-control" th:field="*{songName}" id="songName">
     <label for="singer">Điền tên ca sĩ</label>

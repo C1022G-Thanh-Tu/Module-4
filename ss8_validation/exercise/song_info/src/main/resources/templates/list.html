@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>List</title>
     <!-- Required meta tags -->
@@ -12,6 +12,8 @@
 </head>
 <body>
 <a href="/song/create" class="btn btn-secondary mb-3 mt-3">Thêm mới bài hát</a>
+<div th:if="${msg}" th:text="#{${msg}}"></div>
+<div th:if="${message}" th:text="#{${message}}"></div>
 <table class="table">
     <thead>
     <tr>
