@@ -20,7 +20,8 @@ public class SongController {
     private ISongService songService;
     @GetMapping("")
     public String showList(Model model) {
-        model.addAttribute("songList", songService.findAllSong());
+//        model.addAttribute("songList", songService.findAllSong());
+        model.addAttribute("songList", songService.findAll());
         return "/list";
     }
 
@@ -49,20 +50,18 @@ public class SongController {
     public String showEditForm(@RequestParam Integer id, Model model) {
         SongDTO songDTO = new SongDTO();
         BeanUtils.copyProperties(songService.findById(id), songDTO);
-        model.addAttribute("song", songService.findById(id));
         model.addAttribute("songOTD", songDTO);
         return "/edit";
     }
 
     @PostMapping("/edit")
     public String erformEdit(@Valid @ModelAttribute SongDTO songDTO,
-                             @RequestParam int id,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "/edit";
         }
-        Song song = songService.findById(id);
+        Song song = new Song();
         BeanUtils.copyProperties(songDTO, song);
         songService.updateSong(song);
 

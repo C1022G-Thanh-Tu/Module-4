@@ -5,6 +5,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class SongDTO {
+    private Integer id;
     @NotBlank(message = "songName.notBlank")
     @Size(max = 800, message = "songName.size")
     @Pattern(regexp = "^[^@;,.=+\\-]+$", message = "songName.pattern")
@@ -43,5 +44,13 @@ public class SongDTO {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,18 @@ public class SongService implements ISongService {
     @Override
     public List<SongDTO> findAll() {
         List<Song> songList = songRepository.findAll();
-        return songList.stream().map(song -> mapper.map(song, SongDTO.class)).collect(Collectors.toList());
+        List<SongDTO> songDTOList = new ArrayList<>();
+        SongDTO songDTO;
+        for (Song song : songList) {
+            songDTO = new SongDTO();
+            songDTO.setId(song.getId());
+            songDTO.setSongName(song.getSongName());
+            songDTO.setCategory(song.getCategory());
+            songDTO.setSinger(song.getSinger());
+            songDTOList.add(songDTO);
+        }
+        return songDTOList;
+//        return songList.stream().map(song -> mapper.map(song, SongDTO.class)).collect(Collectors.toList());
     }
 
     @Override
