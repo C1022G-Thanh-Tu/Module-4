@@ -1,7 +1,7 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Create</title>
+    <title>List</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,22 +11,27 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<form action="/user" class="form-group" method="post" th:object="${userDTO}">
-    <label for="firstName">First Name</label>
-    <input type="text" class="form-control" th:field="${userDTO.fistName}" id="firstName">
-    <label for="lastName">Last Name</label>
-    <input type="text" class="form-control" th:field="${userDTO.lastName}" id="lastName">
-    <label for="age">Age</label>
-    <input type="text" class="form-control" th:field="${userDTO.age}" id="age">
-    <label for="email">Email</label>
-    <input type="text" class="form-control" th:field="${userDTO.email}" id="email">
-    <label for="phoneNumber">Phone Number</label>
-    <input type="text" class="form-control" th:field="${userDTO.phoneNumber}" id="phoneNumber">
-    <div class="mt-3">
-        <input type="submit" class="btn btn-primary" value="Tạo mới">
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='/user'">Cancel</button>
-    </div>
-</form>
+<a href="/song/create" class="btn btn-secondary mb-3 mt-3">Thêm mới bài hát</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th>STT</th>
+        <th>Tên bài hát</th>
+        <th>Tên ca sĩ</th>
+        <th>Thể loại</th>
+        <th>Điều chỉnh</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="song, iterStat : ${songList}">
+        <td th:text="${iterStat.count}"></td>
+        <td th:text="${song.songName}"></td>
+        <td th:text="${song.singer}"></td>
+        <td th:text="${song.category}"></td>
+        <td><a th:href="@{/song/edit(id = ${song.id})}" class="btn btn-primary">Edit</a></td>
+    </tr>
+    </tbody>
+</table>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

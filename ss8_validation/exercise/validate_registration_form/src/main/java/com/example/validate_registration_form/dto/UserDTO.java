@@ -1,20 +1,25 @@
 package com.example.validate_registration_form.dto;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.Period;
 
 public class UserDTO {
     @NotBlank (message = "{fistName.notBlank}")
-    @Size(min = 5, max = 45)
+    @Length(min = 5)
+    @Size(max = 45)
     private String fistName;
     @NotBlank (message = "{lastName.notBlank}")
-    @Size(min = 5, max = 45)
+    @Length(min = 5)
+    @Size(max = 45)
     private String lastName;
     @NotBlank (message = "{phoneNumber.notBlank}")
     @Pattern(regexp = "^(090|091|\\(84\\)\\+90|\\(84\\)\\+91)[\\d]{7}$", message = "{phoneNumber.Pattern}")
     private String phoneNumber;
     @NotBlank (message = "{age.notBlank}")
+    @Min(value = 18)
     private String age;
     @NotBlank (message = "{email.notBlank}")
     @Email

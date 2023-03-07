@@ -15,8 +15,8 @@ public class UserService implements IUserService {
     @Autowired
     private IUserRepository userRepository;
     @Override
-    public List<IUserDTO> findAll() {
-        return userRepository.findAllUser();
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     @Override

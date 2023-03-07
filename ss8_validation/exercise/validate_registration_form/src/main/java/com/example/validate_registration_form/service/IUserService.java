@@ -7,6 +7,6 @@ import com.example.validate_registration_form.model.User;
 import java.util.List;
 
 public interface IUserService {
-    List<IUserDTO> findAll();
+    List<User> findAll();
     void create(User user);
 }
