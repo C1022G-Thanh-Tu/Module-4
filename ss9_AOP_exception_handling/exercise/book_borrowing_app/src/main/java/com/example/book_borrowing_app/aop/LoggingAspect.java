@@ -24,7 +24,7 @@ public class LoggingAspect {
     public void handleAfterReturningPerformBorrow(JoinPoint joinPoint) {
         BookDTO bookDTO = ((BookController)joinPoint.getTarget())
                 .bookService.findById(((Integer) joinPoint.getArgs()[0]).intValue());
-        System.out.println("Sach"+ bookDTO.getTitle() + " da bi muon di 1, con lai: "
+        System.out.println("Sach "+ bookDTO.getTitle() + " da bi muon di 1, con lai: "
                 + bookDTO.getQuantity() +" quyen sach");
     }
 
@@ -32,7 +32,7 @@ public class LoggingAspect {
     public void handleAfterReturningPerformGiveBack(JoinPoint joinPoint1) {
         BookDTO bookDTO = ((BookController)joinPoint1.getTarget())
                 .bookService.findById(((Integer) joinPoint1.getArgs()[1]).intValue());
-        System.out.println("Sach"+ bookDTO.getTitle() + " da bi tra lai 1, con lai: "
+        System.out.println("Sach "+ bookDTO.getTitle() + " da bi tra lai 1, con lai: "
                 + bookDTO.getQuantity() +" quyen sach");
     }
 }
