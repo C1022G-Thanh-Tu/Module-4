@@ -5,6 +5,7 @@ import com.example.song_info.model.Song;
 import com.example.song_info.repository.ISongRepository;
 import com.example.song_info.service.ISongService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +26,11 @@ public class SongService implements ISongService {
         SongDTO songDTO;
         for (Song song : songList) {
             songDTO = new SongDTO();
-            songDTO.setId(song.getId());
-            songDTO.setSongName(song.getSongName());
-            songDTO.setCategory(song.getCategory());
-            songDTO.setSinger(song.getSinger());
+            BeanUtils.copyProperties(song, songDTO);
+//            songDTO.setId(song.getId());
+//            songDTO.setSongName(song.getSongName());
+//            songDTO.setCategory(song.getCategory());
+//            songDTO.setSinger(song.getSinger());
             songDTOList.add(songDTO);
         }
         return songDTOList;
