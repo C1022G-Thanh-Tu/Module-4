@@ -31,7 +31,7 @@ public class SongController {
     }
 
     @PostMapping("/create")
-    public String performCreate (@Valid @ModelAttribute SongDTO songDTO,
+    public String performCreate (@Valid @ModelAttribute(name = "songDTO") SongDTO songDTO,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -49,12 +49,12 @@ public class SongController {
     public String showEditForm(@RequestParam Integer id, Model model) {
         SongDTO songDTO = new SongDTO();
         BeanUtils.copyProperties(songService.findById(id), songDTO);
-        model.addAttribute("songOTD", songDTO);
+        model.addAttribute("songDTO", songDTO);
         return "/edit";
     }
 
     @PostMapping("/edit")
-    public String erformEdit(@Valid @ModelAttribute SongDTO songDTO,
+    public String performEdit(@Valid @ModelAttribute(name = "songDTO") SongDTO songDTO,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {

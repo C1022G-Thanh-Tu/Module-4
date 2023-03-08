@@ -7,11 +7,11 @@ import javax.validation.constraints.Size;
 public class SongDTO {
     private Integer id;
     @NotBlank(message = "{songName.notBlank}")
-    @Size(max = 800, message = "songName.size")
+    @Size(max = 800, message = "{songName.size}")
     @Pattern(regexp = "^[^@;,.=+\\-]+$", message = "{songName.pattern}")
     private String songName;
     @NotBlank(message = "{singer.notBlank}")
-    @Size(max = 300, message = "singer.size")
+    @Size(max = 300, message = "{singer.size}")
     @Pattern(regexp = "^[^@;,.=+\\-]+$", message = "{singer.pattern}")
     private String singer;
     @NotBlank(message = "{category.notBlank}")
