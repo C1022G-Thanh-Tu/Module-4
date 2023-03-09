@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class Exception {
-    @ExceptionHandler(java.lang.Exception.class)
-    public String handleException () {
+public class WrongCodeException {
+    @ExceptionHandler(com.example.book_borrowing_app.Exception.WrongCodeException.class)
+    public String handleWrongCodeException () {
         return "/error";
     }
 }

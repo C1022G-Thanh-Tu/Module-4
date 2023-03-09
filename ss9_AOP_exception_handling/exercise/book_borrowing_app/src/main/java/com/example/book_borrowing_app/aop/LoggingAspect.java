@@ -1,14 +1,11 @@
 package com.example.book_borrowing_app.aop;
 
 import com.example.book_borrowing_app.controller.BookController;
-import com.example.book_borrowing_app.model.Book;
 import com.example.book_borrowing_app.model_dto.BookDTO;
-import com.example.book_borrowing_app.service.IBookService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component

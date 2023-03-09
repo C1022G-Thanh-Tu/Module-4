@@ -1,5 +1,7 @@
 package com.example.book_borrowing_app.controller;
 
+import com.example.book_borrowing_app.Exception.QuantityLowerThanZeroException;
+import com.example.book_borrowing_app.Exception.WrongCodeException;
 import com.example.book_borrowing_app.model.Book;
 import com.example.book_borrowing_app.model_dto.BookDTO;
 import com.example.book_borrowing_app.service.IBookService;
@@ -25,8 +27,11 @@ public class BookController {
     }
 
     @GetMapping("/borrow")
-    public String performBorrow (@RequestParam Integer id) {
+    public String performBorrow (@RequestParam Integer id) throws QuantityLowerThanZeroException {
         BookDTO bookDTO = bookService.findById(id);
+        if (bookDTO.getQuantity()==0) {
+            throw new QuantityLowerThanZeroException();
+        }
         bookDTO.borrow();
         Book book = new Book();
         BeanUtils.copyProperties(bookDTO, book);
@@ -36,19 +41,14 @@ public class BookController {
 
     @GetMapping("/giveBack")
     public String performGiveBack (@RequestParam String borrowCode, int id,
-                                   RedirectAttributes redirectAttributes)  {
+                                   RedirectAttributes redirectAttributes) throws WrongCodeException {
         BookDTO bookDTO = bookService.findById(id);
-//        String msg = "";
-//        try {
-//            bookDTO.giveBack(borrowCode);
-//        } catch (Exception e) {
-//            msg = "Nhap sai code";
-//        }
+        String msg = "Da tra duoc sach";
         bookDTO.giveBack(borrowCode);
         Book book = new Book();
         BeanUtils.copyProperties(bookDTO, book);
         bookService.updateBook(book);
-//        redirectAttributes.addFlashAttribute("msg", msg);
+        redirectAttributes.addFlashAttribute("msg", msg);
         return "redirect:/book";
     }
 }

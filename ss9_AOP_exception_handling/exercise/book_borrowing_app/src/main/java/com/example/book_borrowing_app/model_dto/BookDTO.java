@@ -1,5 +1,6 @@
 package com.example.book_borrowing_app.model_dto;
 
+import com.example.book_borrowing_app.Exception.WrongCodeException;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -62,12 +63,12 @@ public class BookDTO {
         return this.borrowCode;
     }
 
-    public void giveBack (String borrowCode)  {
+    public void giveBack (String borrowCode) throws WrongCodeException {
         if (this.borrowCode.equals(borrowCode)) {
             this.quantity = quantity + 1;
         }
-//        else {
-//            throw new Exception();
-//        }
+        else {
+            throw new WrongCodeException();
+        }
     }
 }
