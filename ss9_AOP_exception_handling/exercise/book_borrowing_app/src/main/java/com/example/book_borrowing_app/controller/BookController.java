@@ -27,9 +27,9 @@ public class BookController {
     }
 
     @GetMapping("/borrow")
-    public String performBorrow (@RequestParam Integer id) throws QuantityLowerThanZeroException {
+    public String performBorrow(@RequestParam Integer id) throws QuantityLowerThanZeroException {
         BookDTO bookDTO = bookService.findById(id);
-        if (bookDTO.getQuantity()==0) {
+        if (bookDTO.getQuantity() == 0) {
             throw new QuantityLowerThanZeroException();
         }
         bookDTO.borrow();
@@ -40,8 +40,8 @@ public class BookController {
     }
 
     @GetMapping("/giveBack")
-    public String performGiveBack (@RequestParam String borrowCode, int id,
-                                   RedirectAttributes redirectAttributes) throws WrongCodeException {
+    public String performGiveBack(@RequestParam String borrowCode, int id,
+                                  RedirectAttributes redirectAttributes) throws WrongCodeException {
         BookDTO bookDTO = bookService.findById(id);
         String msg = "Da tra duoc sach";
         bookDTO.giveBack(borrowCode);

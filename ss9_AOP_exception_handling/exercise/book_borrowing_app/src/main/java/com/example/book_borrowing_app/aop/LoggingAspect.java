@@ -12,10 +12,11 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class LoggingAspect {
     @Pointcut("execution(* com.example.book_borrowing_app.controller.BookController.performBorrow(..))")
-    public void loggingPerformBorrowPointCut(){
-    }
+    public void loggingPerformBorrowPointCut(){}
     @Pointcut("execution(* com.example.book_borrowing_app.controller.BookController.performGiveBack(..))")
     public void loggingPerformGiveBackPointCut() {}
+    @Pointcut("execution(* com.example.book_borrowing_app.controller.BookController.showAllList(..))")
+    public void loggingShowAllList () {}
 
     @AfterReturning(pointcut = "loggingPerformBorrowPointCut()")
     public void handleAfterReturningPerformBorrow(JoinPoint joinPoint) {
@@ -23,6 +24,7 @@ public class LoggingAspect {
                 .bookService.findById(((Integer) joinPoint.getArgs()[0]).intValue());
         System.out.println("Sach "+ bookDTO.getTitle() + " da bi muon di 1, con lai: "
                 + bookDTO.getQuantity() +" quyen sach");
+        System.out.println("*******************");
     }
 
     @AfterReturning(pointcut = "loggingPerformGiveBackPointCut()")
@@ -31,5 +33,13 @@ public class LoggingAspect {
                 .bookService.findById(((Integer) joinPoint1.getArgs()[1]).intValue());
         System.out.println("Sach "+ bookDTO.getTitle() + " da bi tra lai 1, con lai: "
                 + bookDTO.getQuantity() +" quyen sach");
+        System.out.println("*******************");
+    }
+    int count = 0;
+    @AfterReturning(pointcut = "loggingShowAllList()")
+    public void handleAfterReturningLoggingShowAllList() {
+
+        System.out.println("Tong so nguoi ghe tham thu vien:" + ++count);
+        System.out.println("*******************");
     }
 }
