@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Shopping Cart</title>
+</head>
+<body>
+<p>
+  <a href="/product">Shop</a>
+</p>
+<h1>Your Cart</h1>
+<form th:action="@{/product}" th:object="${cart}" method="post">
+  <h3>Giỏ hàng: <span th:text="${cart.countItemQuantity()}"></span></h3>
+  <h3>Tổng sản phẩm: <span th:text="${cart.countProductQuantity()}"></span></h3>
+<!--  <table border="1">-->
+<!--    <tr>-->
+<!--      <th>Item</th>-->
+<!--      <th>Quantity</th>-->
+<!--      <th>Price</th>-->
+<!--    </tr>-->
+<!--    <tr th:each="productDTO: ${cart.productMap}">-->
+<!--      <td th:text="${productDTO.getKey().name}"></td>-->
+<!--      <td>-->
+<!--        <a id="decrease_button" th:text="${'-'}"></a>-->
+<!--        <span th:text="${productDTO.getValue()}"></span>-->
+<!--        <a id="increase_button" th:href="@{/product/add(id = ${productDTO.getKey().id}, action='show')}"-->
+<!--           th:text="${'+'}"></a>-->
+<!--      </td>-->
+<!--      <td th:text="${productDTO.getKey().price}"></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td>Total</td>-->
+<!--      <td></td>-->
+<!--      <td th:text="${cart.countTotalPayment()}"></td>-->
+<!--    </tr>-->
+<!--  </table>-->
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" class="ps-3">First</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="productDTO: ${cart.productMap}">
+      <td scope="row"><img th:src="${productDTO.key.imgURL}" alt="" height="140px"></td>
+      <td class="ps-3">
+        <p th:text="${productDTO.key.name}"></p>
+        <p>Đơn giá: <span th:text="${productDTO.key.price} + đ"></span></p>
+        <p>Số lượng
+          <a class="btn btn-primary" id="increase_button"
+             th:href="@{/product/add(id = ${productDTO.getKey().id}, action='show')}"
+             th:text="${'+'}" style="text-decoration: none">
+          </a>
+          <span th:text="${productDTO.value}"></span>
+          <a class="btn btn-primary" id="decrease_button"
+             th:href="@{/product/decrease(id = ${productDTO.getKey().id}, action='show1')}"
+             th:text="${'-'}" style="text-decoration: none">
+          </a>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>Tổng cộng: <span th:text="${cart.countTotalPayment()}+đ"></span></td>
+    </tr>
+    </tbody>
+  </table>
+</form>
+</body>
+</html>

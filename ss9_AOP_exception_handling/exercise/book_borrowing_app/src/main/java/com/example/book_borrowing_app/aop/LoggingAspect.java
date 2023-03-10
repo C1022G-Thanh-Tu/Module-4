@@ -38,7 +38,6 @@ public class LoggingAspect {
     int count = 0;
     @AfterReturning(pointcut = "loggingShowAllList()")
     public void handleAfterReturningLoggingShowAllList() {
-
         System.out.println("Tong so nguoi ghe tham thu vien:" + ++count);
         System.out.println("*******************");
     }
