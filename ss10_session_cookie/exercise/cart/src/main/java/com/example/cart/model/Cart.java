@@ -56,7 +56,6 @@ public class Cart {
                 productMap.remove(productDTO);
             } else {
                 Map.Entry<ProductDTO, Integer> itemEntry = selectItemInCart(productDTO);
-
                 Integer newQuantity = itemEntry.getValue() - 1;
                 productMap.replace(itemEntry.getKey(),newQuantity);
             }
