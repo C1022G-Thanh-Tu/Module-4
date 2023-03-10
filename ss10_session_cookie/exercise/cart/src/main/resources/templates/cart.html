@@ -18,7 +18,7 @@
 <form th:action="@{/product}" th:object="${cart}" method="post">
   <h3>Giỏ hàng: <span th:text="${cart.countItemQuantity()}"></span></h3>
   <h3>Tổng sản phẩm: <span th:text="${cart.countProductQuantity()}"></span></h3>
-  <table class="table table-striped">
+  <table class="table-striped">
     <thead>
     <tr>
       <th scope="col">Sản phẩm</th>
