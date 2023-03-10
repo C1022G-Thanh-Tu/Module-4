@@ -29,6 +29,16 @@ public class CategoryService implements ICategoryService {
         CategoryDTO categoryDTO;
         for (Category category : categoryList) {
             categoryDTO = new CategoryDTO();
+            Set<Blog> blogSet = category.getBlogSet();
+            Set<BlogDTO> blogDTOS = new HashSet<>();
+            BlogDTO blogDTO;
+            for (Blog blog : blogSet) {
+                blogDTO = new BlogDTO();
+                BeanUtils.copyProperties(blog, blogDTO);
+                blogDTOS.add(blogDTO);
+            }
+            BeanUtils.copyProperties(category, categoryDTO);
+            categoryDTO.setBlogSet(blogDTOS);
             BeanUtils.copyProperties(category, categoryDTO);
             categoryDTOList.add(categoryDTO);
         }
