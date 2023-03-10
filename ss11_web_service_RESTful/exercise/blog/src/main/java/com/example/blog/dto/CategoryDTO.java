@@ -1,15 +1,12 @@
 package com.example.blog.dto;
 
-import com.example.blog.model.Blog;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import java.util.Set;
 
 public class CategoryDTO {
     private Integer id;
     private String name;
 
-    private Set<BlogDTO> blogSet;
+    private Set<BlogDTO> blogDTOSet;
 
     public CategoryDTO() {
     }
@@ -30,11 +27,11 @@ public class CategoryDTO {
         this.name = name;
     }
 
-    public Set<BlogDTO> getBlogSet() {
-        return blogSet;
+    public Set<BlogDTO> getBlogDTOSet() {
+        return blogDTOSet;
     }
 
-    public void setBlogSet(Set<BlogDTO> blogSet) {
-        this.blogSet = blogSet;
+    public void setBlogDTOSet(Set<BlogDTO> blogDTOSet) {
+        this.blogDTOSet = blogDTOSet;
     }
 }

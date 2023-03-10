@@ -22,7 +22,7 @@ import java.util.Set;
 public class CategoryService implements ICategoryService {
     @Autowired
     private ICategoryRepository categoryRepository;
-    public void setBlogDTOSet (Category category, CategoryDTO categoryDTO) {
+    public void setValueOfBlogDTOSet(Category category, CategoryDTO categoryDTO) {
         Set<Blog> blogSet = category.getBlogSet();
         Set<BlogDTO> blogDTOS = new HashSet<>();
         BlogDTO blogDTO;
@@ -32,7 +32,7 @@ public class CategoryService implements ICategoryService {
             blogDTOS.add(blogDTO);
         }
         BeanUtils.copyProperties(category, categoryDTO);
-        categoryDTO.setBlogSet(blogDTOS);
+        categoryDTO.setBlogDTOSet(blogDTOS);
     }
     @Override
     public Page<CategoryDTO> findAll(Pageable pageable) {
@@ -41,7 +41,7 @@ public class CategoryService implements ICategoryService {
         CategoryDTO categoryDTO;
         for (Category category : categoryList) {
             categoryDTO = new CategoryDTO();
-            setBlogDTOSet(category, categoryDTO);
+            setValueOfBlogDTOSet(category, categoryDTO);
             BeanUtils.copyProperties(category, categoryDTO);
             categoryDTOList.add(categoryDTO);
         }
@@ -52,7 +52,7 @@ public class CategoryService implements ICategoryService {
     public CategoryDTO findById(int id) {
         CategoryDTO categoryDTO = new CategoryDTO();
         Category category = categoryRepository.findById(id).get();
-        setBlogDTOSet(category, categoryDTO);
+        setValueOfBlogDTOSet(category, categoryDTO);
         return categoryDTO;
     }
 }
