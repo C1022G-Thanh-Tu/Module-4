@@ -38,7 +38,10 @@ public class BlogService implements IBlogService {
     @Override
     public BlogDTO findById(int id) {
         BlogDTO blogDTO = new BlogDTO();
-        BeanUtils.copyProperties(blogRepository.findById(id).get(), blogDTO);
+        Blog blog = blogRepository.findById(id).get();
+        blogDTO.setCategoryDTO(new CategoryDTO());
+        BeanUtils.copyProperties(blog.getCategory(), blogDTO.getCategoryDTO());
+        BeanUtils.copyProperties(blog, blogDTO);
         return blogDTO;
     }
 }
