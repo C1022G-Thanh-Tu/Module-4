@@ -15,10 +15,16 @@
   <img th:src="${productDTO.imgURL}" class="card-img-top" alt="...">
   <div class="card-body">
     <h5 class="card-title" th:text="${productDTO.name}"></h5>
-    <p class="card-text" th:text="${productDTO.price} + đ"></p>
+    <p class="card-text" th:text="${#numbers.formatCurrency(productDTO.price)}"></p>
     <a class="btn btn-primary" th:href="@{/product/add(id = ${productDTO.id}, action='list')}">Add To Cart</a>
   </div>
 </div>
+<script th:inline="javascript">
+    const numberFormat = new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+    });
+</script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
