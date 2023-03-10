@@ -22,33 +22,7 @@ import java.util.Set;
 public class CategoryService implements ICategoryService {
     @Autowired
     private ICategoryRepository categoryRepository;
-    @Override
-    public Page<CategoryDTO> findAll(Pageable pageable) {
-        Page<Category> categoryList = categoryRepository.findAll(pageable);
-        List<CategoryDTO> categoryDTOList = new ArrayList<>();
-        CategoryDTO categoryDTO;
-        for (Category category : categoryList) {
-            categoryDTO = new CategoryDTO();
-            Set<Blog> blogSet = category.getBlogSet();
-            Set<BlogDTO> blogDTOS = new HashSet<>();
-            BlogDTO blogDTO;
-            for (Blog blog : blogSet) {
-                blogDTO = new BlogDTO();
-                BeanUtils.copyProperties(blog, blogDTO);
-                blogDTOS.add(blogDTO);
-            }
-            BeanUtils.copyProperties(category, categoryDTO);
-            categoryDTO.setBlogSet(blogDTOS);
-            BeanUtils.copyProperties(category, categoryDTO);
-            categoryDTOList.add(categoryDTO);
-        }
-        return new PageImpl<>(categoryDTOList);
-    }
-
-    @Override
-    public CategoryDTO findById(int id) {
-        CategoryDTO categoryDTO = new CategoryDTO();
-        Category category = categoryRepository.findById(id).get();
+    public void setBlogDTOSet (Category category, CategoryDTO categoryDTO) {
         Set<Blog> blogSet = category.getBlogSet();
         Set<BlogDTO> blogDTOS = new HashSet<>();
         BlogDTO blogDTO;
@@ -59,6 +33,26 @@ public class CategoryService implements ICategoryService {
         }
         BeanUtils.copyProperties(category, categoryDTO);
         categoryDTO.setBlogSet(blogDTOS);
+    }
+    @Override
+    public Page<CategoryDTO> findAll(Pageable pageable) {
+        Page<Category> categoryList = categoryRepository.findAll(pageable);
+        List<CategoryDTO> categoryDTOList = new ArrayList<>();
+        CategoryDTO categoryDTO;
+        for (Category category : categoryList) {
+            categoryDTO = new CategoryDTO();
+            setBlogDTOSet(category, categoryDTO);
+            BeanUtils.copyProperties(category, categoryDTO);
+            categoryDTOList.add(categoryDTO);
+        }
+        return new PageImpl<>(categoryDTOList);
+    }
+
+    @Override
+    public CategoryDTO findById(int id) {
+        CategoryDTO categoryDTO = new CategoryDTO();
+        Category category = categoryRepository.findById(id).get();
+        setBlogDTOSet(category, categoryDTO);
         return categoryDTO;
     }
 }
