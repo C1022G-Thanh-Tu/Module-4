@@ -1,6 +1,7 @@
 package com.example.blog.service.impl;
 
 import com.example.blog.dto.BlogDTO;
+import com.example.blog.dto.CategoryDTO;
 import com.example.blog.model.Blog;
 import com.example.blog.repository.IBlogRepository;
 import com.example.blog.service.IBlogService;
@@ -26,6 +27,8 @@ public class BlogService implements IBlogService {
         BlogDTO blogDTO;
         for (Blog blog : blogList) {
             blogDTO = new BlogDTO();
+            blogDTO.setCategoryDTO(new CategoryDTO());
+            BeanUtils.copyProperties(blog.getCategory(), blogDTO.getCategoryDTO());
             BeanUtils.copyProperties(blog, blogDTO);
             blogDTOList.add(blogDTO);
         }

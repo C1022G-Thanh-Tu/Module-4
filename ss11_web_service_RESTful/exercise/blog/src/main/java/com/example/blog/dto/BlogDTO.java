@@ -7,8 +7,8 @@ public class BlogDTO {
     private Integer id;
     private String authorName;
     private String title;
-    @JsonBackReference
-    private Category category;
+    
+    private CategoryDTO categoryDTO;
 
     public BlogDTO() {
     }
@@ -37,11 +37,11 @@ public class BlogDTO {
         this.title = title;
     }
 
-    public Category getCategory() {
-        return category;
+    public CategoryDTO getCategoryDTO() {
+        return categoryDTO;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryDTO(CategoryDTO categoryDTO) {
+        this.categoryDTO = categoryDTO;
     }
 }

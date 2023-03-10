@@ -8,7 +8,7 @@ import java.util.Set;
 public class CategoryDTO {
     private Integer id;
     private String name;
-    @JsonManagedReference
+
     private Set<BlogDTO> blogSet;
 
     public CategoryDTO() {
