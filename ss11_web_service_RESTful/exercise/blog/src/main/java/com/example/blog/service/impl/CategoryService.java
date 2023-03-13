@@ -45,7 +45,7 @@ public class CategoryService implements ICategoryService {
             BeanUtils.copyProperties(category, categoryDTO);
             categoryDTOList.add(categoryDTO);
         }
-        return new PageImpl<>(categoryDTOList);
+        return new PageImpl<>(categoryDTOList, pageable, categoryList.getTotalElements());
     }
 
     @Override

@@ -21,8 +21,8 @@ public class BlogService implements IBlogService {
     private IBlogRepository blogRepository;
 
     @Override
-    public Page<BlogDTO> findAll(Pageable pageable) {
-        Page<Blog> blogList = blogRepository.findAll(pageable);
+    public Page<BlogDTO> findAll(Pageable pageable, String title) {
+        Page<Blog> blogList = blogRepository.findBlogByTitleContaining(pageable, title);
         List<BlogDTO> blogDTOList = new ArrayList<>();
         BlogDTO blogDTO;
         for (Blog blog : blogList) {
@@ -32,7 +32,7 @@ public class BlogService implements IBlogService {
             BeanUtils.copyProperties(blog, blogDTO);
             blogDTOList.add(blogDTO);
         }
-        return new PageImpl<>(blogDTOList);
+        return new PageImpl<>(blogDTOList, pageable, blogList.getTotalElements());
     }
 
     @Override

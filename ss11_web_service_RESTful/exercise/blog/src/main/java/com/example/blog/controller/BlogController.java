@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/blog")
+@CrossOrigin("*")
 public class BlogController {
     @Autowired
     private IBlogService blogService;
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("")
-    public Page<BlogDTO> getBlogs(@PageableDefault(size = 5)Pageable pageable) {
-        return blogService.findAll(pageable);
+    public Page<BlogDTO> getBlogs(@PageableDefault(size = 5) Pageable pageable,
+                                  @RequestParam(required = false, defaultValue = "") String title) {
+
+        return blogService.findAll(pageable, title);
     }
 
     @ResponseStatus(HttpStatus.OK)

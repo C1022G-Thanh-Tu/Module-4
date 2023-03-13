@@ -5,6 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IBlogService {
-    Page<BlogDTO> findAll(Pageable pageable);
+    Page<BlogDTO> findAll(Pageable pageable, String title);
     BlogDTO findById(int id);
 }
