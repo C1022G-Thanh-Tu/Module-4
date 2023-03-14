@@ -7,14 +7,14 @@ function renderLoadMoreBtn (blogPageData) {
     if (blogPageData.number < blogPageData.totalPages -1) {
         $("#loadMoreContainer").html (
             `
-                <button type="button" class="btn btn-primary"
+                <button id="loadMoreId" type="button" class="btn btn-primary"
                 onclick="loadMore(${blogPageData.number + 1})">
                 Load More
                 </button>
             `
         )
     } else {
-        $("#loadMoreContainer").remove();
+        $("#loadMoreId").remove();
     }
 }
 
@@ -37,7 +37,7 @@ function renderBlogs (blogs, append) {
 }
 
 function loadBlogs(page, append) {
-    let title = document.getElementById("title").value;
+    let title = $("#title").val();
     $.ajax({
         type: "GET",
         url: `http://localhost:8080/blog?page=${page ? page : "0"}&title=${title}`,
@@ -100,6 +100,21 @@ function renderCategories (categories, append) {
         $("#listCategories").html(elements);
     }
 }
+
+$('#link-category').click(function (e) {
+  e.preventDefault();
+
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://localhost:8080/category', true);
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      document.getElementById('content').innerHTML = xhr.responseText;
+    } else {
+      alert('Yêu cầu không thành công. Mã lỗi: ' + xhr.status);
+    }
+  };
+  xhr.send();
+});
 
 function loadCategories(page, append) {
     $.ajax({
