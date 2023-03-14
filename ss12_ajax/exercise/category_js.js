@@ -1,12 +1,25 @@
+// caterogry
+function loadMoreCategory(nextPage) {
+    loadCategories(nextPage, true);
+}
+
+function renderLoadMoreCategoryBtn (categoryPageData) {
+    if (categoryPageData.number < categoryPageData.totalPages -1) {
+        $("#loadMoreCategoryContainer").html (
+            `
+                <button type="button" class="btn btn-primary"
+                onclick="loadMoreCategory(${categoryPageData.number + 1})">
+                Load More
+                </button>
+            `
+        )
+    } else {
+        $("#loadMoreCategoryContainer").remove();
+    }
+}
+
 function renderCategories (categories, append) {
-    let elements = `
-    <thead>
-    <tr>
-        <th>Tên thể loại</th>
-        <th>List blog</th>
-    </tr>
-    </thead>
-    <tbody>`;
+    let elements = "";
     for (let category of categories) {
         elements += 
         `<tr>
@@ -19,7 +32,6 @@ function renderCategories (categories, append) {
         `</td>
         </tr>`;
     }
-    elements += "</tbody>";
 
     if (append) {
         $("#listCategories").append(elements);
@@ -28,7 +40,7 @@ function renderCategories (categories, append) {
     }
 }
 
-function loadCategorys(page, append) {
+function loadCategories(page, append) {
     $.ajax({
         type: "GET",
         url: `http://localhost:8080/category?page=${page ? page : "0"}`,
@@ -36,7 +48,8 @@ function loadCategorys(page, append) {
             "Content-Type": "application/json",
         },
         success: function (data) {
-            renderCategories(data.content)
+            renderCategories(data.content, append)
+            renderLoadMoreCategoryBtn(data)
         },
         error: function (error) {
             console.log(error);
@@ -45,5 +58,5 @@ function loadCategorys(page, append) {
 }
 
 $(document).ready(function () {
-    loadCategorys();
+    loadCategories();
 })
