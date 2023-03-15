@@ -1,9 +1,11 @@
 package com.example.blog.service.impl;
 
+import com.example.blog.dto.BlogCreateDTO;
 import com.example.blog.dto.BlogDTO;
 import com.example.blog.dto.CategoryDTO;
 import com.example.blog.model.Blog;
 import com.example.blog.repository.IBlogRepository;
+import com.example.blog.repository.ICategoryRepository;
 import com.example.blog.service.IBlogService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ import java.util.List;
 public class BlogService implements IBlogService {
     @Autowired
     private IBlogRepository blogRepository;
+
+    @Autowired
+    private ICategoryRepository categoryRepository;
 
     @Override
     public Page<BlogDTO> findAll(Pageable pageable, String title) {
@@ -43,5 +48,13 @@ public class BlogService implements IBlogService {
         BeanUtils.copyProperties(blog.getCategory(), blogDTO.getCategoryDTO());
         BeanUtils.copyProperties(blog, blogDTO);
         return blogDTO;
+    }
+
+    @Override
+    public void add(BlogCreateDTO blogCreateDTO) {
+        Blog blog = new Blog();
+        blog.setCategory(categoryRepository.findCategoryByName(blogCreateDTO.getCategoryDTO().getName()));
+        BeanUtils.copyProperties(blogCreateDTO, blog);
+        blogRepository.save(blog);
     }
 }

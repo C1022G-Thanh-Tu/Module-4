@@ -1,15 +1,13 @@
 package com.example.blog.dto;
 
-import com.example.blog.model.Category;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-public class BlogDTO {
+public class BlogCreateDTO {
     private Integer id;
     private String authorName;
     private String title;
+    private String content;
     private CategoryDTO categoryDTO;
 
-    public BlogDTO() {
+    public BlogCreateDTO() {
     }
 
     public Integer getId() {
@@ -34,6 +32,14 @@ public class BlogDTO {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public CategoryDTO getCategoryDTO() {

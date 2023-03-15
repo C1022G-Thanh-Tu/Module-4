@@ -10,6 +10,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/category")
 @CrossOrigin("*")
@@ -17,10 +19,16 @@ public class CategoryController {
     @Autowired
     private ICategoryService categoryService;
 
-    @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
+    @GetMapping("")
     public Page<CategoryDTO> getCategories(@PageableDefault(size = 3) Pageable pageable) {
         return categoryService.findAll(pageable);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/list")
+    public List<CategoryDTO> getCategories() {
+        return categoryService.findAllList();
     }
 
     @ResponseStatus(HttpStatus.OK)

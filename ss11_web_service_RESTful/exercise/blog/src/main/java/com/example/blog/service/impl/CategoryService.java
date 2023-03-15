@@ -36,7 +36,21 @@ public class CategoryService implements ICategoryService {
     }
     @Override
     public Page<CategoryDTO> findAll(Pageable pageable) {
-        Page<Category> categoryList = categoryRepository.findAll(pageable);
+        Page<Category> categoryPage = categoryRepository.findAll(pageable);
+        List<CategoryDTO> categoryDTOList = new ArrayList<>();
+        CategoryDTO categoryDTO;
+        for (Category category : categoryPage) {
+            categoryDTO = new CategoryDTO();
+            setValueOfBlogDTOSet(category, categoryDTO);
+            BeanUtils.copyProperties(category, categoryDTO);
+            categoryDTOList.add(categoryDTO);
+        }
+        return new PageImpl<>(categoryDTOList, pageable, categoryPage.getTotalElements());
+    }
+
+    @Override
+    public List<CategoryDTO> findAllList() {
+        List<Category> categoryList = categoryRepository.findAll();
         List<CategoryDTO> categoryDTOList = new ArrayList<>();
         CategoryDTO categoryDTO;
         for (Category category : categoryList) {
@@ -45,7 +59,7 @@ public class CategoryService implements ICategoryService {
             BeanUtils.copyProperties(category, categoryDTO);
             categoryDTOList.add(categoryDTO);
         }
-        return new PageImpl<>(categoryDTOList, pageable, categoryList.getTotalElements());
+        return categoryDTOList;
     }
 
     @Override
@@ -54,5 +68,10 @@ public class CategoryService implements ICategoryService {
         Category category = categoryRepository.findById(id).get();
         setValueOfBlogDTOSet(category, categoryDTO);
         return categoryDTO;
+    }
+
+    @Override
+    public Category findCategoryByName(String name) {
+        return categoryRepository.findCategoryByName(name);
     }
 }

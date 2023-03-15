@@ -1,5 +1,6 @@
 package com.example.blog.controller;
 
+import com.example.blog.dto.BlogCreateDTO;
 import com.example.blog.dto.BlogDTO;
 import com.example.blog.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,11 @@ public class BlogController {
     @GetMapping("/detail/{id}")
     public BlogDTO getBlogDetail(@PathVariable int id) {
         return blogService.findById(id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(value = "" ,consumes = "application/json")
+    public void addBlog (@RequestBody BlogCreateDTO blogCreateDTO) {
+        blogService.add(blogCreateDTO);
     }
 }
