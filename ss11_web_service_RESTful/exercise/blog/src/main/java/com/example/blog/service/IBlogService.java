@@ -9,4 +9,5 @@ public interface IBlogService {
     Page<BlogDTO> findAll(Pageable pageable, String title);
     BlogDTO findById(int id);
     void add (BlogCreateDTO blogCreateDTO);
+    void delete (BlogDTO blogDTO);
 }

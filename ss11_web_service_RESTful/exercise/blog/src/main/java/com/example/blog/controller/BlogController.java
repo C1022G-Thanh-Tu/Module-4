@@ -35,4 +35,10 @@ public class BlogController {
     public void addBlog (@RequestBody BlogCreateDTO blogCreateDTO) {
         blogService.add(blogCreateDTO);
     }
+
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{id}")
+    public void deleteBlog (@PathVariable int id) {
+        blogService.delete(blogService.findById(id));
+    }
 }

@@ -57,4 +57,9 @@ public class BlogService implements IBlogService {
         BeanUtils.copyProperties(blogCreateDTO, blog);
         blogRepository.save(blog);
     }
+
+    @Override
+    public void delete(BlogDTO blogDTO) {
+        blogRepository.deleteById(blogDTO.getId());
+    }
 }

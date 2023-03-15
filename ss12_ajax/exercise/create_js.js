@@ -25,6 +25,7 @@ function addProduct(authorName, title, content, category) {
     }),
     success: function (data) {
       alert("Thêm sản phẩm thành công!");
+      window.location.replace("blog.html");
     },
     error: function () {
       alert("Lỗi khi thêm sản phẩm!");
